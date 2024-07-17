@@ -1,13 +1,26 @@
 "use client";
 
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import classes from "./image-picker.module.css";
 
 export default function ImagePicker({ label, name }) {
+  const [pickedImage, setPickedImage] = useState();
   const imageInputRef = useRef();
 
   const handleFileInputChange = () => {
     imageInputRef.current.click();
+  };
+
+  const handleImageChange = (event) => {
+    const file = event.target.files[0];
+    if (!file) {
+      return;
+    }
+    const fileReader = new FileReader();
+    fileReader.onload = (event) => {
+      setPickedImage(event.target.result);
+    };
+    fileReader.readAsDataURL(file);
   };
 
   return (
@@ -21,6 +34,7 @@ export default function ImagePicker({ label, name }) {
           id={name}
           name={name}
           accept="image/png, image/jpeg"
+          onChange={handleImageChange}
         />
         <button
           className={classes.button}
