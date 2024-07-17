@@ -12,8 +12,7 @@ export const getAllMeals = async () => {
 };
 
 export const getMeal = async (slug: any) => {
-  await new Promise((resolve) => setTimeout(resolve, 2000));
-  return db.prepare("SELECT * FROM meals WHERE slug = ?").get([slug]);
+  return db.prepare("SELECT * FROM meals WHERE slug = ?").get(slug);
 };
 
 export const saveMeal = async (meal) => {

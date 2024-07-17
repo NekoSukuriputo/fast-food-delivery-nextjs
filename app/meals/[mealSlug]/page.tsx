@@ -1,4 +1,3 @@
-import Link from "next/link";
 import clasess from "./page.module.css";
 import Image from "next/image";
 import { getMeal } from "@/lib/meals";
