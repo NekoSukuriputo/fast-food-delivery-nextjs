@@ -3,6 +3,18 @@ import Image from "next/image";
 import { getMeal } from "@/lib/meals";
 import { notFound } from "next/navigation";
 
+export async function generateMetadata({
+  params,
+}: {
+  params: { mealSlug: string };
+}) {
+  const meal = await getMeal(params.mealSlug);
+  return {
+    title: meal?.title || "Meal not found",
+    description: meal?.summary || "Meal not found",
+  };
+}
+
 export default async function MealDetailPage({
   params,
 }: {
@@ -10,7 +22,7 @@ export default async function MealDetailPage({
 }) {
   const meal = await getMeal(params.mealSlug);
 
-  if(!meal) {
+  if (!meal) {
     notFound();
   }
 
